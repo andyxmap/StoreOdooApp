@@ -31,6 +31,7 @@ import Config from "./config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 
+
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 // Web linking configuration
@@ -107,6 +108,7 @@ function App(props: AppProps) {
         </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>
+
   )
 }
 

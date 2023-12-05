@@ -1,18 +1,20 @@
 import { observer } from "mobx-react-lite"
 import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ViewStyle, Image, ImageStyle,View } from "react-native"
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
+import { TextInput, View, ImageBackground, SafeAreaView, TouchableOpacity, TextStyle } from "react-native"
+import { Button, Icon, Text, TextField, TextFieldAccessoryProps } from "../components"
 import { useStores } from "../store"
 import { AppStackScreenProps } from "../navigators"
-import { colors, spacing,  } from "../theme"
+import { colors } from "../theme"
+import { $signIn, $tapButton, $textField, contentCenter, $fullImage, $fullBg, $enterDetails, $tapButtonTxt, $topMargin, $centerText } from "../theme/styles"
 
 
-const store = require("../../assets/images/store-removebg-preview.png")
-interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
+const store = require("../../assets/images/login.png")
+interface LoginScreenProps extends AppStackScreenProps<"Login"> { }
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
-  
+
   const authPasswordInput = useRef<TextInput>(null)
+  const { navigation } = _props
 
   const [authPassword, setAuthPassword] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
@@ -23,7 +25,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   } = useStores()
 
   useEffect(() => {
-   
+
     setAuthEmail("admin@codes.store")
     setAuthPassword("Odoo")
 
@@ -48,6 +50,12 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
     setAuthToken(String(Date.now()))
   }
 
+  function onRegister(){
+    
+      navigation.navigate("Register")
+    
+  }
+
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
     () =>
       function PasswordRightAccessory(props: TextFieldAccessoryProps) {
@@ -65,91 +73,71 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   )
 
   return (
-    <Screen
-      backgroundColor={colors.background}
-      preset="auto"
-      contentContainerStyle={$screenContentContainer}
-      safeAreaEdges={["top", "bottom"]}
-    >
-      <Text testID="login-heading" tx="loginScreen.signIn" preset="heading" style={$signIn} />
-      <View style={$viewImageStyle} >
-             <Image style={$image} source={store}></Image>
-       </View> 
-      <Text tx="loginScreen.enterDetails" preset="subheading" style={$enterDetails} />
-      {attemptsCount > 2 && <Text tx="loginScreen.hint" size="sm" weight="light" style={$hint} />}
+    <SafeAreaView style={$fullBg}>
+      <ImageBackground source={store} resizeMode="contain" style={$fullImage}>
 
-      <TextField
-        value={authEmail}
-        onChangeText={setAuthEmail}
-        containerStyle={$textField}
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
-        keyboardType="email-address"
-        labelTx="loginScreen.emailFieldLabel"
-        placeholderTx="loginScreen.emailFieldPlaceholder"
-        helper={error}
-        status={error ? "error" : undefined}
-        onSubmitEditing={() => authPasswordInput.current?.focus()}
-      />
+        <View style={contentCenter}>
+          <View>
+            <Text testID="login-heading" tx="loginScreen.signIn" preset="heading" style={$signIn} />
+            <Text tx="loginScreen.details" preset="heading" style={$enterDetails} />
+          </View>
+          <View style={$topMargin}>
+            <TextField
+              value={authEmail}
+              onChangeText={setAuthEmail}
+              containerStyle={$textField}
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect={false}
+              LabelTextProps={{
+                style:$signIn
+              }}
+              keyboardType="email-address"
+              labelTx="loginScreen.emailFieldLabel"
+              placeholderTx="loginScreen.emailFieldPlaceholder"
+              helper={error}
+              status={error ? "error" : undefined}
+              onSubmitEditing={() => authPasswordInput.current?.focus()}
+            />
 
-      <TextField
-        ref={authPasswordInput}
-        value={authPassword}
-        onChangeText={setAuthPassword}
-        containerStyle={$textField}
-        autoCapitalize="none"
-        autoComplete="password"
-        autoCorrect={false}
-        secureTextEntry={isAuthPasswordHidden}
-        labelTx="loginScreen.passwordFieldLabel"
-        placeholderTx="loginScreen.passwordFieldPlaceholder"
-        onSubmitEditing={login}
-        RightAccessory={PasswordRightAccessory}
-      />
+            <TextField
+              ref={authPasswordInput}
+              value={authPassword}
+              onChangeText={setAuthPassword}
+              containerStyle={$textField}
+              LabelTextProps={{
+                style:$signIn
+              }}
+              autoCapitalize="none"
+              autoComplete="password"
+              autoCorrect={false}
+              secureTextEntry={isAuthPasswordHidden}
+              labelTx="loginScreen.passwordFieldLabel"
+              placeholderTx="loginScreen.passwordFieldPlaceholder"
+              onSubmitEditing={login}
+              RightAccessory={PasswordRightAccessory}
+            />
 
-      <Button
-        testID="login-button"
-        tx="loginScreen.tapToSignIn"
-        style={$tapButton}
-        preset="reversed"
-        onPress={login}
-      />
-      
-    </Screen>
+            <Button
+              testID="login-button"
+              tx="loginScreen.tapToSignIn"
+              style={$tapButton}
+              onPress={login}
+              textStyle={$tapButtonTxt}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={onRegister}
+              >
+              <Text tx="loginScreen.register" preset="formHelper" style={$centerText as TextStyle}></Text>
+            </TouchableOpacity>
+          </View>
+
+
+        </View>
+
+      </ImageBackground>
+    </SafeAreaView>
   )
 })
 
-const $screenContentContainer: ViewStyle = {
-  paddingVertical: spacing.xxl,
-  paddingHorizontal: spacing.lg,
-}
-
-const $signIn: TextStyle = {
-  marginBottom: spacing.sm,
-}
-
-const $enterDetails: TextStyle = {
-  marginBottom: spacing.lg,
-}
-
-const $hint: TextStyle = {
-  color: colors.tint,
-  marginBottom: spacing.md,
-}
-
-const $textField: ViewStyle = {
-  marginBottom: spacing.lg,
-}
-
-const $tapButton: ViewStyle = {
-  marginTop: spacing.xs,
-  backgroundColor: colors.palette.secondary
-}
-
-const $image: ImageStyle = { flex: 1,
-  width: '100%',
-  height: '100%',
-  resizeMode: 'cover'}
-
-const $viewImageStyle:ViewStyle = { marginTop: spacing.lg, width:200,height:200, alignSelf:"center"}

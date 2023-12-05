@@ -36,15 +36,30 @@ const es = {
         "Introduzca los datos necesarios para iniciar su sesión. Si no tienes una cuenta porque no intenta registrarse",
       emailFieldLabel: "Correo",
       passwordFieldLabel: "Contraseña",
-      emailFieldPlaceholder: "Introduzca su dirección de correo",
+      emailFieldPlaceholder: "Correo",
       passwordFieldPlaceholder: "Contraseña",
       tapToSignIn: "Entrar",
       hint: "Ayuda: debe utilizar una dirección de correo válida y una contraseña :)",
+      details: "El arte de la charcutería en cada producto",
+      register:"¡No tienes cuenta!. Toque para registrarse"
+    },
+    registerScreen:{
+      nameFieldLabel: "Nombre",
+      passwordFieldLabel: "Repite tu contraseña",
+      label:"Registro",
+      confirm:"Registrarse"
     },
     fieldsValidation:{
          blank: "No puede estar vacío",
          min: "Debe tener como mínimo {{min}} caracteres",
          email: "Debe ser una dirección de correo"
+    },
+    orderScreen:{
+      title: "Mis órdenes",
+      complete: 'Mostrar solo las completadas'
+    },
+    productScreen:{
+      title: "Productos disponibles",
     }
   }
   

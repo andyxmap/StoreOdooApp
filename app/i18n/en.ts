@@ -40,6 +40,14 @@ const en = {
     passwordFieldPlaceholder: "Super secret password here",
     tapToSignIn: "Tap to sign in!",
     hint: "Hint: you can use any email address and your favorite password :)",
+    details:"",
+    register:"Don't have account. Touch to register"
+  },
+  registerScreen:{
+    nameFieldLabel: "Name",
+    passwordFieldLabel: "Repeat Password",
+    label:"Register",
+    confirm:"Register"
   },
   demoNavigator: {
     componentsTab: "Components",
@@ -124,7 +132,14 @@ const en = {
     blank: "Can't be blank",
     min: "Must be at least {{min}} characters",
     email: "Must be a email address"
-}
+},
+  orderScreen:{
+    title: "Mis ordernes",
+    complete: 'Mostrar solo las completadas'
+  },
+  productScreen:{
+    title: "Productos disponibles",
+  }
 }
 
 export default en

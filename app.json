@@ -7,9 +7,9 @@
     "scheme": "storeodooapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/store-removebg-preview.png",
+    "icon": "./assets/images/logocontxt.png",
     "splash": {
-      "image": "./assets/images/store-removebg-preview.png",
+      "image": "./assets/images/logocontxt.png",
       "resizeMode": "contain",
       "backgroundColor": "#191015"
     },
@@ -21,33 +21,33 @@
       "**/*"
     ],
     "android": {
-      "icon": "./assets/images/store-removebg-preview.png",
+      "icon": "./assets/images/logocontxt.png",
       "package": "com.storeodooapp",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/store-removebg-preview.png",
-        "backgroundImage": "./assets/images/store-removebg-preview.png"
+        "foregroundImage": "./assets/images/logocontxt.png",
+        "backgroundImage": "./assets/images/logocontxt.png"
       },
       "splash": {
-        "image": "./assets/images/store-removebg-preview.png",
+        "image": "./assets/images/logocontxt.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
     },
     "ios": {
-      "icon": "./assets/images/app-icon-ios.png",
+      "icon": "./assets/images/logocontxt.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.storeodooapp",
       "splash": {
-        "image": "./assets/images/store-removebg-preview.png",
-        "tabletImage": "./assets/images/store-removebg-preview.png",
+        "image": "./assets/images/logocontxt.png",
+        "tabletImage": "./assets/images/logocontxt.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
     },
     "web": {
-      "favicon": "./assets/images/store-removebg-preview.png",
+      "favicon": "./assets/images/logocontxt.png",
       "splash": {
-        "image": "./assets/images/store-removebg-preview.png",
+        "image": "./assets/images/logocontxt.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       },
