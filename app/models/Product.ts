@@ -15,7 +15,29 @@ export const ProductModel = types
   })
   .actions(withSetPropAction)
 
+  export const ProductCartModel = types
+  .model("ProductCart")
+  .props({
+    id: types.string,
+    name: types.string,
+    price: types.number,
+    quantity: types.number,
+    image:types.number,
+    firstTime: types.boolean
+
+  })
+  .actions(withSetPropAction)
+  .views((product)=>({
+    get total() {
+      return product.price * product.quantity
+    }
+  }))
+
 
 export interface Product extends Instance<typeof ProductModel> {}
 export interface ProductSnapshotOut extends SnapshotOut<typeof ProductModel> {}
 export interface ProductSnapshotIn extends SnapshotIn<typeof ProductModel> {}
+
+export interface ProductCart extends Instance<typeof ProductCartModel> {}
+export interface ProductCartSnapshotOut extends SnapshotOut<typeof ProductCartModel> {}
+

@@ -37,6 +37,8 @@ export class Api {
       timeout: this.config.timeout,
       headers: {
         Accept: "application/json",
+        From: 'app', 
+        "Content-Type": 'application/json'
       },
     })
   }
@@ -74,6 +76,60 @@ export class Api {
       return { kind: "bad-data" }
     }
   }
+
+  async apiGetWrapper<T>(url:string,parameters:any): Promise<T | GeneralApiProblem> {
+    
+    const response: ApiResponse<T> = await this.apisauce.get(
+      url,
+      {
+        params:parameters
+      }
+    )
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    try {
+      const rawData = response.data
+      return rawData as T
+    } catch (e) {
+      return this.onError<T>(e, response)
+    }
+  }
+
+  private onError<T>(e: unknown, response: ApiResponse<T>):GeneralApiProblem {
+    if (__DEV__ && e instanceof Error) {
+      console.tron.error?.(`Bad data: ${e.message}\n${response.data}`, e.stack)
+    }
+    return { kind: "bad-data" }
+  }
+
+  async apiPostWrapper<T>(url:string,body:any,isPut=false): Promise<T | GeneralApiProblem> {
+    
+    const response: ApiResponse<T> = !isPut ? await this.apisauce.post<T>(
+      url,
+      body
+    ) :   
+    await this.apisauce.put<T>(
+      url,
+      body
+    )
+
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) return problem
+    }
+
+    try {
+      const rawData = response.data
+      return rawData as T
+    } catch (e) {
+      return this.onError<T>(e, response)
+    }
+  }
+
 }
 
 // Singleton instance of the API for convenience

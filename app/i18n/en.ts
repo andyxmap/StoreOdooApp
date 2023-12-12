@@ -139,6 +139,9 @@ const en = {
   },
   productScreen:{
     title: "Productos disponibles",
+  },
+  cartScreen:{
+    title: "Productos en el carrito",
   }
 }
 

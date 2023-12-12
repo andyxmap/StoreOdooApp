@@ -21,6 +21,18 @@ export interface EpisodeItem {
   categories: string[]
 }
 
+export interface Result{
+  code:string,
+  message:string
+}
+
+export interface CommonResult{
+  id:any,
+  jsonrpc:string
+  error?:Result,
+  result:Result
+}
+
 export interface ApiFeedResponse {
   status: string
   feed: {

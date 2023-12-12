@@ -17,6 +17,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import {CategoryNavigator} from "./CategoryNavigator"
 import { ProductSnapshotOut } from "app/models/Product"
+import { NativeBaseProvider } from "native-base"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -43,6 +44,7 @@ export type AppStackParamList = {
     product: ProductSnapshotOut
     categoryName: string
   }
+  Cart:undefined
 
 }
 
@@ -66,6 +68,7 @@ const AppStack = observer(function AppStack() {
   } = useStores()
 
   return (
+    <NativeBaseProvider>
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
       initialRouteName={isAuthenticated ? "HomeCategorie" : "Login"}
@@ -86,8 +89,11 @@ const AppStack = observer(function AppStack() {
 			<Stack.Screen name="Orders" component={Screens.OrdersScreen} />
 			<Stack.Screen name="User" component={Screens.UserScreen} />
       <Stack.Screen name="Products" component={Screens.ProductsScreen} />
+      <Stack.Screen name="ProductDetail" component={Screens.ProductDetailScreen} />
+      <Stack.Screen name="Cart" component={Screens.CartScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
+    </NativeBaseProvider>
   )
 })
 

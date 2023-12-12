@@ -5,7 +5,6 @@ import {
   OrdersScreen,
   UserScreen
 } from "app/screens"
-import { NativeBaseProvider } from "native-base";
 import { colors } from "app/theme";
 import { CustomDrawerContent } from "app/components/Drawer";
 
@@ -52,7 +51,6 @@ export const CategoryNavigator = () => {
 
  
   return (
-    <NativeBaseProvider>
       <Drawer.Navigator
       drawerContent={CustomDrawerContent} 
       initialRouteName="Home"
@@ -89,6 +87,5 @@ export const CategoryNavigator = () => {
         }
 
       </Drawer.Navigator>
-    </NativeBaseProvider>
   )
 }

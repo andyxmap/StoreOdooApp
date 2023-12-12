@@ -1,7 +1,7 @@
 /* eslint-disable react-native/sort-styles */
 /* eslint-disable react-native/no-unused-styles */
 /* eslint-disable react-native/no-color-literals */
-import React, { FC, useRef, useState } from "react";
+import React, { FC } from "react";
 import {
   ScrollView,
   Text,
@@ -15,8 +15,10 @@ import {
 import { AppStackScreenProps } from "app/navigators";
 import { observer } from "mobx-react-lite";
 import { useBackHeader } from "app/hooks/customHeader";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import { Button } from "native-base";
+import { Box, Button, HStack, Input, Spacer, VStack } from "native-base";
+import { colors } from "app/theme";
+import NumericInput from "react-native-numeric-input";
+import { Icon } from "app/components";
 
 const { width: viewportWidth } = Dimensions.get("window");
 interface ProductDetailScreenProps extends AppStackScreenProps<"ProductDetail"> {}
@@ -28,16 +30,12 @@ export const ProductDetailScreen: FC<ProductDetailScreenProps> = observer(functi
   const item = route.params?.product;
   const title = route.params?.categoryName;
 
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  const slider1Ref = useRef();
-
   useBackHeader()
 
   const renderImage = ({ item }) => (
     <TouchableHighlight>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: item }} />
+        <Image style={styles.image} source={item} />
       </View>
     </TouchableHighlight>
   );
@@ -49,35 +47,7 @@ export const ProductDetailScreen: FC<ProductDetailScreenProps> = observer(functi
   return (
     <ScrollView style={styles.container}>
       <View style={styles.carouselContainer}>
-        <View style={styles.carousel}>
-          <Carousel
-            ref={slider1Ref}
-            data={[item.image]}
-            renderItem={renderImage}
-            sliderWidth={viewportWidth}
-            itemWidth={viewportWidth}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            firstItem={0}
-            loop={false}
-            autoplay={false}
-            autoplayDelay={500}
-            autoplayInterval={3000}
-            onSnapToItem={(index) => setActiveSlide(0)}
-          />
-          <Pagination
-            dotsLength={1}
-            activeDotIndex={activeSlide}
-            containerStyle={styles.paginationContainer}
-            dotColor="rgba(255, 255, 255, 0.92)"
-            dotStyle={styles.paginationDot}
-            inactiveDotColor="white"
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-            carouselRef={slider1Ref.current}
-            tappableDots={!!slider1Ref.current}
-          />
-        </View>
+          {renderImage(item.image)}
       </View>
       <View style={styles.infoRecipeContainer}>
         <Text style={styles.infoRecipeName}>{item.title}</Text>
@@ -92,23 +62,39 @@ export const ProductDetailScreen: FC<ProductDetailScreenProps> = observer(functi
             </Text>
           </TouchableHighlight>
         </View>
-
-        <View style={styles.infoContainer}>
-          <Image
-            style={styles.infoPhoto}
-            source={require("../../assets/icons/time.png")}
-          />
-          <Text style={styles.infoRecipe}>10 minutes </Text>
-        </View>
-
-        <View style={styles.infoContainer}>
-          <Button
-            onPress={onPress}
-          />
-        </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoDescriptionRecipe}>{item.description}</Text>
         </View>
+        <View style={styles.infoContainer}>
+          <VStack>
+          <NumericInput 
+            value={0} 
+            onChange={value => console.log({value})} 
+            onLimitReached={(isMax,msg) => console.log(isMax,msg)}
+            totalWidth={240} 
+            totalHeight={50} 
+            iconSize={25}
+            step={1.5}
+            valueType='real'
+            rounded 
+            textColor='white' 
+            iconStyle={{ color: 'white' }} 
+            rightButtonBackgroundColor={colors.palette.primary}
+            leftButtonBackgroundColor={colors.palette.lightBussines}/>
+            <Box h="5"  />
+          <Button
+            backgroundColor={colors.palette.primary}
+            variant="solid"
+            onPress={onPress}
+          >
+            <HStack>
+            <Icon icon="cart" size={20}></Icon>
+            <Text>Agregar al carrito</Text>
+            </HStack>
+            </Button>
+          </VStack>
+        </View>
+        
       </View>
     </ScrollView>
   );
@@ -125,17 +111,19 @@ const styles = StyleSheet.create({
   },
   carousel: {},
   carouselContainer: {
-    minHeight: 250
+    minHeight: 250,
+    backgroundColor: colors.palette.secondary,
   },
 
   category: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: '300',
     margin: 10,
-    color: '#2cd18a'
+    color: colors.palette.primary,
+    
   },
   container: {
-    backgroundColor: 'white',
+    backgroundColor: colors.palette.secondary,
     flex: 1
   },
   image: {
@@ -159,7 +147,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 16,
     marginTop: 30,
-    margin: 15
+    marginBottom:10,
+    margin: 15,
+    color:"white",
+    fontWeight:"200"
   },
   infoPhoto: {
     height: 20,
@@ -181,8 +172,8 @@ const styles = StyleSheet.create({
   infoRecipeName: {
     fontSize: 28,
     margin: 10,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: '300',
+    color: 'white',
     textAlign: 'center'
   },
   paginationContainer: {
