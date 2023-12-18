@@ -20,7 +20,7 @@
     "build:production:ios": "eas build --profile production --platform ios --local",
     "build:android:sim": "eas build --profile development --platform android --local",
     "build:development:android": "eas build --profile development:device --platform android --local",
-    "build:production:android": "eas build --profile production --platform android --local",
+    "build:production:android": "eas build -p android --profile preview",
     "start": "npx expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",

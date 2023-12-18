@@ -61,3 +61,32 @@ export interface ApiConfig {
   timeout: number
 }
 
+export interface PaginateResponse<T> {
+  items: T[];
+  meta:  Meta;
+}
+
+export interface CommonItem {
+  id:          number;
+  name:        string;
+  parent_path: string;
+  sequence:    number;
+  logo_url:    string;
+}
+
+export interface Meta {
+  page:            number;
+  take:            number;
+  itemCount:       number;
+  pageCount:       number;
+  hasPreviousPage: boolean;
+  hasNextPage:     boolean;
+}
+
+
+export interface ResultClass<T> {
+  jsonrpc: string;
+  id:      null;
+  result:  T;
+}
+

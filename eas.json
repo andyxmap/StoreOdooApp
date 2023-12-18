@@ -32,7 +32,9 @@
       "extends": "preview",
       "ios": { "simulator": false }
     },
-    "production": {}
+    "production": {
+      
+    }
   },
   "submit": {
     "production": {}
