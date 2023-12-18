@@ -6,7 +6,6 @@ name: Expo Doctor (expo)
 on:
   push:
     branches:
-      - develop
       - master
     paths:
       - "package.json"

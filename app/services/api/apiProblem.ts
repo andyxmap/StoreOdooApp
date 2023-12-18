@@ -72,3 +72,7 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
 
   return null
 }
+
+export function isGeneralProblem(value:any){
+  return 'kind' in value
+}

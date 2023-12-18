@@ -35,3 +35,23 @@ export interface Address {
   phone: string
   mobile: string
 }
+
+export interface LoginResponse {
+  jsonrpc: string;
+  id:      null;
+  result:  Result;
+}
+
+export interface Result {
+  name:                   string;
+  lastname:               boolean;
+  email:                  string;
+  lang:                   string;
+  currency_id:            number;
+  address_id:             number;
+  userid:                 number;
+  access_token:           string;
+  access_token_expire_on: number;
+  refresh_token:          string;
+  websocket_host:         string;
+}

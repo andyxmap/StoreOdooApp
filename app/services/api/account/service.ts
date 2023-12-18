@@ -1,4 +1,4 @@
-import { UserProfile, UserSignin, UserSignup } from "./types";
+import { LoginResponse, UserProfile, UserSignin, UserSignup } from "./types";
 import { api } from "../api";
 import { CommonResult } from "../api.types";
 import { GeneralApiProblem } from "../apiProblem";
@@ -13,8 +13,8 @@ export async function userSignup(data:UserSignup):Promise<CommonResult|GeneralAp
     return response
 }
 
-export async function login(data:UserSignin):Promise<CommonResult|GeneralApiProblem> {
-    const response = await api.apiPostWrapper<CommonResult>(
+export async function login(data:UserSignin):Promise<LoginResponse|GeneralApiProblem> {
+    const response = await api.apiPostWrapper<LoginResponse>(
         "/auth/signin",
         {
             params:data
